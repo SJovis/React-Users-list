@@ -1,16 +1,20 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 import Card from "./Card";
 import Button from "./Button";
-import Wrapper from "../Helpers/Wrapper";
 
 import classes from './ErrorModal.module.css';
 
-const ErrorModal = (props) => {
+const Backdrop = (props) => {
   return (
-    <Wrapper>
-      <div className={classes.backdrop} onClick={props.onClear}></div>
-      <Card className={classes.modal}>
+    <div className={classes.backdrop} onClick={props.onClear}></div>
+  );
+}
+
+const Overlay = (props) => {
+  return (
+    <Card className={classes.modal}>
         <header className={classes.header}>
           <h2>{props.title}</h2>
         </header>
@@ -21,7 +25,15 @@ const ErrorModal = (props) => {
           <Button onClick={props.onClear}>OK</Button>
         </footer>
       </Card>
-    </Wrapper>
+  );
+}
+
+const ErrorModal = (props) => {
+  return (
+    <>
+    {ReactDOM.createPortal(<Backdrop onClear={props.onClear}/>, document.getElementById("backdrop-root"))}
+    {ReactDOM.createPortal(<Overlay title={props.title} message={props.message} onClear={props.onClear}/>, document.getElementById("overlay-root"))}
+    </>
   );
 };
 

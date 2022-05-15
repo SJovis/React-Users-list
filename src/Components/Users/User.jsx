@@ -1,7 +1,6 @@
 import React from "react";
 
 import Button from "../UI/Button";
-import Wrapper from "../Helpers/Wrapper";
 
 const User = (props) => {
 
@@ -10,12 +9,12 @@ const User = (props) => {
   }
 
   return (
-    <Wrapper>
+    <>
       <p>
         {props.name} - {props.age} years old
       </p>
       <Button onClick={deleteUserHandler}>❌</Button>
-    </Wrapper>
+    </>
   );
 };
 
